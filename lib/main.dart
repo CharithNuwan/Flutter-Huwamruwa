@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:huwamaruwa/screen/forgotPassword.dart';
 import 'package:huwamaruwa/screen/login_screen.dart';
 import 'package:huwamaruwa/screen/menu_screen.dart';
+import 'package:huwamaruwa/screen/profile_screen.dart';
 import 'package:huwamaruwa/screen/signup.dart';
 
 
@@ -20,7 +21,7 @@ void main() {
       runApp(
           GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: "/login",
+            initialRoute: "/home_screen",
             getPages: [
               GetPage(
                 name: '/login',
@@ -43,8 +44,14 @@ void main() {
               GetPage(
                 name: '/signup',
                 page: () => SignUp(),
-               transition: Transition.native,
-               transitionDuration: Duration(milliseconds: 1000),
+                transition: Transition.native,
+                transitionDuration: Duration(milliseconds: 1000),
+              ),
+              GetPage(
+                name: '/Profile',
+                page: () => ProfileScreen(),
+                transition: Transition.native,
+                transitionDuration: Duration(milliseconds: 1000),
               ),
             ],
           )

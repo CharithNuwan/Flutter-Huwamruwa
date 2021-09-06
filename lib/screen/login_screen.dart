@@ -26,10 +26,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   static const String routeName = '/login';
   SharedPreferences sharedPreferences;
+
   final TextEditingController mobileNumberController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+
+  String loginText="Login";
 
   @override
   void initState() {
@@ -62,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  "LOGIN",
+                  loginText,
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -146,17 +150,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                     BorderRadius.circular(10.0)
                                 ),
                                 onPressed: () {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
+                                  // setState(() {
+                                  //   isLoading = false;
+                                  // });
                                   if(passwordController.text!=""){
-                                    // Navigator.pushReplacementNamed(context, Routes.home);
-                                  }else{
+                                    print("Change");
+                                    // Navigator.pushReplacementNamed(context, Routes.cart);
+                                      // login(mobileNumberController.text, passwordController.text,context);
+                                      // mobileNumberController.text="123";
+
                                     setState(() {
-                                      isLoading = false;
+                                      loginText="LOGIN TEST";
+                                      isLoading = true;
                                     });
+                                  }else{
+                                    print("No text");
+                                    // setState(() {
+                                    //   isLoading = false;
+                                    // });
                                   }
-                                 login(mobileNumberController.text, passwordController.text);
+                                 //
                                 },
                                 child: Text(
                                   "LOG IN",
@@ -243,7 +256,10 @@ class _LoginScreenState extends State<LoginScreen> {
   // }
 
 
-  Future login(email,pass) async {
+  Future login(email,pass,context) async {
+    setState(() {
+      isLoading=false;
+    });
     print("---signupStep---");
     sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("email", email.toString());
@@ -260,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
 
-    var response = await post("http://10.0.2.2:8090/user/verify", headers: <String, String>{
+    var response = await post("https://huwamaruwa-app.herokuapp.com/user/verify", headers: <String, String>{
       'Content-Type': 'application/json',
     },body:jsonEncode(data)).then((response){
       print(data);
@@ -272,21 +288,35 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading=false;
         });
-        print(response.body);
-      } else {
+        // print(response.body);
+      } else if(response.statusCode == 404) {
         print("---else---");
-        AwesomeDialog(context: context,
-            dialogType: DialogType.ERROR,
-            animType: AnimType.BOTTOMSLIDE,
-            title: "",
-            desc: userDataMap["status"],
-            dismissOnTouchOutside: false,
-            btnOkOnPress: () {
-            }).show();
-        print("---ERRO---");
         setState(() {
           isLoading=false;
         });
+        AwesomeDialog(context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: "Unsuccessful",
+            desc: "login Unsuccessful",
+            dismissOnTouchOutside: false,
+            btnOkOnPress: () {
+
+            }).show();
+        // print("---ERRO---");
+      }else{
+        setState(() {
+          isLoading=false;
+        });
+        AwesomeDialog(context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: "Unsuccessful",
+            desc: "Unexpected Error Occurred",
+            dismissOnTouchOutside: false,
+            btnOkOnPress: () {
+            }).show();
+        // print("---ERRO---");
       }
     }).catchError((e){
       setState(() {

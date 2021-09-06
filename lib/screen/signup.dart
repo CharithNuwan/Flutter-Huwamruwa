@@ -686,7 +686,8 @@ class _SignUpState extends State<SignUp> {
       "tp":'one',
       "reset_code":'one',
       "user_rate":187.0,
-      "payment_email":null
+      "payment_email":null,
+      "resetcode":null
     };
     Map<String, dynamic> userDataMap;
     print(data);

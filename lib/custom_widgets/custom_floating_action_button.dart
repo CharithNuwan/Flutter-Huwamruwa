@@ -9,7 +9,7 @@ class CustomFloatingActionButton extends StatelessWidget {
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0, color: Colors.grey[900]),
       backgroundColor: Theme.of(context).primaryColor,
-      marginBottom: 40,
+      marginBottom: 80,
       onOpen: () => print('OPENING DIAL'),
       onClose: () => print('DIAL CLOSED'),
       visible: true,
