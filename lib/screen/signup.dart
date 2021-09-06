@@ -675,7 +675,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future login() async {
-    print("---signupStep---");
+
      sharedPreferences = await SharedPreferences.getInstance();
      sharedPreferences.setString("email", emailController.text.toString());
     // print("get Key "+prefs.getString(UiData.signup_authKey).toString());
