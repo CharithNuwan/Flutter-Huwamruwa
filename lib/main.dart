@@ -21,7 +21,7 @@ void main() {
       runApp(
           GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: "/home_screen",
+            initialRoute: "/login",
             getPages: [
               GetPage(
                 name: '/login',

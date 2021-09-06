@@ -14,6 +14,7 @@ import 'package:huwamaruwa/custom_widgets/custom_floating_action_button.dart';
 import 'package:huwamaruwa/dto/ListingBook.dart';
 import 'package:huwamaruwa/dto/booklist.dart';
 import 'package:huwamaruwa/dto/cart_dto.dart';
+import 'package:huwamaruwa/routes/routes.dart';
 import 'package:huwamaruwa/screen/login_screen.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui';
@@ -204,6 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             onPressed: () {
                               setBottomBarIndex(3);
+                              Get.toNamed("/Profile");
                             }),
                       ],
                     ),
