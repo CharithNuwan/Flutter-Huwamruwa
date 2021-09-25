@@ -157,7 +157,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       ),
                                       child: OutlineButton(
                                         splashColor: Colors.blueAccent,

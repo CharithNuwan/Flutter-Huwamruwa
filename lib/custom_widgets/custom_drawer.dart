@@ -29,6 +29,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
     super.initState();
 //    setProfile();
 //    setUserData();
+    getUserStatus();
+  }
+
+
+  Future getUserStatus() async {
+    setState(() {
+      isLoading=true;
+    });
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      email=sharedPreferences.getString("email");
+      name=sharedPreferences.getString("name");
+    });
+
+
+    setState(() {
+      isLoading=false;
+    });
+
   }
 
   setProfile()async{
@@ -55,22 +75,23 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              Theme.of(context).primaryColorLight,
-                              Theme.of(context).primaryColorLight,
+                              Colors.orange[200],
+                              Colors.orange,
                             ]
                         )
                     ),
                     child: Column(
                       children: [
-                        CircleAvatar(
-//                          backgroundImage: Image(
-////                              image: CachedNetworkImageProvider(profileUrl)
-////                          ).image,
-                            backgroundImage:Image.memory(base64Decode(profileUrl)).image,
-                          radius: 40.0,
-                        ),
+                        SizedBox(height: 30,),
+//                         CircleAvatar(
+// //                          backgroundImage: Image(
+// ////                              image: CachedNetworkImageProvider(profileUrl)
+// ////                          ).image,
+//                             backgroundImage:Image.memory(base64Decode(profileUrl)).image,
+//                           radius: 40.0,
+//                         ),
                         AutoSizeText(
-                          name != null ? name : "oshimanathunga23@gmail.com",
+                          name != null ? name : "",
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 color: Colors.grey[800],
@@ -135,129 +156,129 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     },
                   ),
                   SizedBox(height: 10.0,),
-                  GestureDetector(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
-                      margin: EdgeInsets.only(right: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15.0),
-                            bottomRight: Radius.circular(15.0)
-                        ),
-                        color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.category,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                          SizedBox(width: 15.0,),
-                          Text(
-                            "For Kids",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                                fontSize: Get.height < 680 ? 12.0 : 15.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: (){
-                      Get.back();
-                      Get.toNamed('/settings');
-                    },
-                  ),
-                  SizedBox(height: 10.0,),
-                  GestureDetector(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
-                      margin: EdgeInsets.only(right: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15.0),
-                            bottomRight: Radius.circular(15.0)
-                        ),
-                        color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.category,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                          SizedBox(width: 15.0,),
-                          Text(
-                            "For Women",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                                fontSize: Get.height < 680 ? 12.0 : 15.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: (){
-                      Get.back();
-                      Get.toNamed('/settings');
-                    },
-                  ),
-                  SizedBox(height: 10.0,),
-                  GestureDetector(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
-                      margin: EdgeInsets.only(right: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15.0),
-                            bottomRight: Radius.circular(15.0)
-                        ),
-                        color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.category,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                          SizedBox(width: 15.0,),
-                          Text(
-                            "For Men",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                                fontSize: Get.height < 680 ? 12.0 : 15.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: (){
-                      Get.back();
-                      Get.toNamed('/settings');
-                    },
-                  ),
-                  SizedBox(height: 10.0,),
+                  // GestureDetector(
+                  //   child: Container(
+                  //     padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
+                  //     margin: EdgeInsets.only(right: 10.0),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.only(
+                  //           topRight: Radius.circular(15.0),
+                  //           bottomRight: Radius.circular(15.0)
+                  //       ),
+                  //       color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         // Icon(
+                  //         //   Icons.category,
+                  //         //   color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         // ),
+                  //         // SizedBox(width: 15.0,),
+                  //         // Text(
+                  //         //   "For Kids",
+                  //         //   style: GoogleFonts.poppins(
+                  //         //     textStyle: TextStyle(
+                  //         //       color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         //       fontSize: Get.height < 680 ? 12.0 : 15.0,
+                  //         //       fontWeight: FontWeight.w600,
+                  //         //     ),
+                  //         //   ),
+                  //         // ),
+                  //         // Icon(
+                  //         //   Icons.arrow_forward_ios,
+                  //         //   color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         // ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   onTap: (){
+                  //     Get.back();
+                  //     Get.toNamed('/settings');
+                  //   },
+                  // ),
+                  // SizedBox(height: 10.0,),
+                  // GestureDetector(
+                  //   child: Container(
+                  //     padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
+                  //     margin: EdgeInsets.only(right: 10.0),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.only(
+                  //           topRight: Radius.circular(15.0),
+                  //           bottomRight: Radius.circular(15.0)
+                  //       ),
+                  //       color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.category,
+                  //           color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         ),
+                  //         SizedBox(width: 15.0,),
+                  //         Text(
+                  //           "For Women",
+                  //           style: GoogleFonts.poppins(
+                  //             textStyle: TextStyle(
+                  //               color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //               fontSize: Get.height < 680 ? 12.0 : 15.0,
+                  //               fontWeight: FontWeight.w600,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Icon(
+                  //           Icons.arrow_forward_ios,
+                  //           color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   onTap: (){
+                  //     Get.back();
+                  //     Get.toNamed('/settings');
+                  //   },
+                  // ),
+                  // SizedBox(height: 10.0,),
+                  // GestureDetector(
+                  //   child: Container(
+                  //     padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
+                  //     margin: EdgeInsets.only(right: 10.0),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.only(
+                  //           topRight: Radius.circular(15.0),
+                  //           bottomRight: Radius.circular(15.0)
+                  //       ),
+                  //       color: currentRoute == "/settings" ? Colors.amber[600] : Colors.white24,
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.category,
+                  //           color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         ),
+                  //         SizedBox(width: 15.0,),
+                  //         Text(
+                  //           "For Men",
+                  //           style: GoogleFonts.poppins(
+                  //             textStyle: TextStyle(
+                  //               color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //               fontSize: Get.height < 680 ? 12.0 : 15.0,
+                  //               fontWeight: FontWeight.w600,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Icon(
+                  //           Icons.arrow_forward_ios,
+                  //           color: currentRoute == "/settings" ? Colors.grey[800] : Colors.black54,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   onTap: (){
+                  //     Get.back();
+                  //     Get.toNamed('/settings');
+                  //   },
+                  // ),
+                  // SizedBox(height: 10.0,),
                   GestureDetector(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 10.0),
@@ -291,7 +312,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
                     onTap: (){
                       Get.back();
-                      Get.toNamed('/settings');
+                      Get.toNamed("/Profile");
                     },
                   ),
                   SizedBox(height: 10.0,),
@@ -309,13 +330,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.settings
+                            Icons.collections_bookmark_rounded
                             ,
                             color: currentRoute == "/home" ? Colors.grey[800] : Colors.black54,
                           ),
                           SizedBox(width: 15.0,),
                           Text(
-                            "Settings",
+                            "Request Book",
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: currentRoute == "/home" ? Colors.grey[800] : Colors.black54,
@@ -329,7 +350,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
                     onTap: (){
                       Get.back();
-                      Get.toNamed('/home');
+                      Get.toNamed("/request_screen");
                     },
                   ),
 //                  SizedBox(height: 10.0,),
@@ -532,8 +553,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         colors: [
 //                          Colors.amber[400],
 //                          Colors.amber[600]
-                          Theme.of(context).primaryColorDark,
-                          Theme.of(context).primaryColorDark,
+                          Colors.orange[400],
+                          Colors.orange,
                         ]
                     )
                 ),

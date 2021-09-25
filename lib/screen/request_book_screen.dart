@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:badges/badges.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +23,14 @@ import 'package:huwamaruwa/screen/login_screen.dart';
 import 'package:huwamaruwa/services/UI_Data.dart';
 import 'dart:ui';
 
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class AddNewScreen extends StatefulWidget {
-  static const String routeName = '/add_new_screen';
+
+class RequestScreen extends StatefulWidget {
+  static const String routeName = '/request_screen';
   @override
-  _AddNewScreenState createState() => _AddNewScreenState();
+  _RequestScreenState createState() => _RequestScreenState();
 }
 
 
@@ -37,8 +40,9 @@ List<Cart> activityHistoryList = [];
 
 Book book_map;
 
-class _AddNewScreenState extends State<AddNewScreen> {
+class _RequestScreenState extends State<RequestScreen> {
 
+  SharedPreferences sharedPreferences;
 
   int currentIndex = 0;
 
@@ -49,6 +53,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
   final TextEditingController _author = new TextEditingController();
   final TextEditingController _isbn = new TextEditingController();
   final TextEditingController _qty = new TextEditingController();
+  final TextEditingController des= new TextEditingController();
 
   String listing_type = "";
 
@@ -123,6 +128,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
   String _district;
   bool checkedValue=false;
   List<String> extensions;
+  String _listing_type1;
 
   String fileName;
   String path;
@@ -139,7 +145,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(title: "HUWAMARUWA", bell_icon: true,),
+      appBar: CustomAppBar(title: "Request Book", bell_icon: true,),
       drawer: CustomDrawer(),
       backgroundColor: Colors.white.withAlpha(70),
       body: Stack(
@@ -235,54 +241,6 @@ class _AddNewScreenState extends State<AddNewScreen> {
                           fillColor: Colors.grey[200]),
                     ),
                     SizedBox(height: 15),
-                    TextFormField(
-                      controller: _qty,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'Quantity',
-                          filled: true,
-                          fillColor: Colors.grey[200]),
-                    ),
-                    SizedBox(height: 15),
-                    Container(
-                      decoration: BoxDecoration(border: Border.all(color: Colors.white,width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white),
-                      child: CheckboxListTile(
-                        title: const Text('E-Book'),
-                        // subtitle: const Text('A programming blog'),
-                        secondary: const Icon(Icons.menu_book),
-                        value: checkedValue,
-                        onChanged: (bool value) {
-                          try{
-                            selectFile();
-                          }catch(e){
-
-                          }
-
-                          setState(() {
-                            checkedValue = value;
-                          });
-
-                        },
-
-                      ),
-                    ),
-                    SizedBox(height: 15),
                     updateButton(context),
                     // SizedBox(height: 100),
                   ],
@@ -330,8 +288,8 @@ class _AddNewScreenState extends State<AddNewScreen> {
                               color: currentIndex == 1 ? Colors.orange : Colors.grey.shade400,
                             ),
                             onPressed: () {
-                              setBottomBarIndex(1);
                               Get.toNamed("/request_screen");
+                              setBottomBarIndex(1);
                             }),
                         Container(
                           width: size.width * 0.20,
@@ -388,7 +346,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
           children: [
             SizedBox(width: 10.0,),
             Text(
-              "Next",
+              "Request Book",
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                       color: Colors.grey[900],
@@ -407,91 +365,96 @@ class _AddNewScreenState extends State<AddNewScreen> {
           print(_book_title.text.toString());
           print(_author.text.toString());
           print(_isbn.text.toString());
-          print(_qty.text.toString());
-          print(checkedValue.toString());
-
-          UI_Data.bookTitle=_book_title.text.toString();
-          UI_Data.auther=_author.text.toString();
-          UI_Data.isbn=_isbn.text.toString();
-          UI_Data.qty=_qty.text.toString();
-          UI_Data.listingType=checkedValue.toString();
-          Get.toNamed("/add_new_screen2");
+          // print(_qty.text.toString());
+          // print(checkedValue.toString());
+          //
+          // UI_Data.bookTitle=_book_title.text.toString();
+          // UI_Data.auther=_author.text.toString();
+          // UI_Data.isbn=_isbn.text.toString();
+          // UI_Data.qty=_qty.text.toString();
+          // UI_Data.listingType=checkedValue.toString();
+          // Get.toNamed("/add_new_screen2");
           // AddBook(context);
+          reqBook(context);
         },
       ),
     );
   }
 
-  // Future AddBook(context) async {
-  //   // setState(() {
-  //   //   isLoading=false;
-  //   // });
-  //   // print("---signupStep---");
-  //   // sharedPreferences = await SharedPreferences.getInstance();
-  //   // sharedPreferences.setString("email", email.toString());
-  //   // // print("get Key "+prefs.getString(UiData.signup_authKey).toString());
-  //   // Map data = {
-  //   //   "email":email.toString(),
-  //   //   "password":pass.toString()
-  //   // };
-  //   // Map<String, dynamic> userDataMap;
-  //   // print(data);
-  //   //
-  //   //
-  //   // // var response = await http.post(url);
-  //   // // print('Response status: ${response.statusCode}');
-  //   // // print('Response body: ${response.body}');
-  //   //
-  //   // var response = await post("https://huwamaruwa-app.herokuapp.com/user/verify", headers: <String, String>{
-  //   //   'Content-Type': 'application/json',
-  //   // },body:jsonEncode(data)).then((response){
-  //   //   print(data);
-  //   //   print(response.body.toString());
-  //   //   userDataMap = jsonDecode(response.body.toString());
-  //   //   print("---Response Status Code "+response.statusCode.toString()+"---");
-  //   //   if(response.statusCode == 200) {
-  //   //     Navigator.pushReplacementNamed(context, Routes.home);
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     // print(response.body);
-  //   //   } else if(response.statusCode == 404) {
-  //   //     print("---else---");
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     AwesomeDialog(context: context,
-  //   //         dialogType: DialogType.ERROR,
-  //   //         animType: AnimType.BOTTOMSLIDE,
-  //   //         title: "Unsuccessful",
-  //   //         desc: "login Unsuccessful",
-  //   //         dismissOnTouchOutside: false,
-  //   //         btnOkOnPress: () {
-  //   //
-  //   //         }).show();
-  //   //     // print("---ERRO---");
-  //   //   }else{
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     AwesomeDialog(context: context,
-  //   //         dialogType: DialogType.ERROR,
-  //   //         animType: AnimType.BOTTOMSLIDE,
-  //   //         title: "Unsuccessful",
-  //   //         desc: "Unexpected Error Occurred",
-  //   //         dismissOnTouchOutside: false,
-  //   //         btnOkOnPress: () {
-  //   //         }).show();
-  //   //     // print("---ERRO---");
-  //   //   }
-  //   // }).catchError((e){
-  //   //   setState(() {
-  //   //     isLoading=false;
-  //   //   });
-  //   //   print("---ERRO---");
-  //   //   print("----- "+e+" -----");
-  //   // });
-  // }
+Future reqBook(context) async {
+  int userid=0;
+  setState(() {
+    isLoading=false;
+  });
+  print("---signupStep---");
+   sharedPreferences = await SharedPreferences.getInstance();
+  userid=sharedPreferences.getInt("user");
+  // print("get Key "+prefs.getString(UiData.signup_authKey).toString());
+  Map data = {
+    "isbn":_isbn.text.toString(),
+    "name":_book_title.text.toString(),
+    "author":_author.text.toString(),
+    "userID":userid
+  };
+
+  Map<String, dynamic> userDataMap;
+  print(data);
+
+
+  // var response = await http.post(url);
+  // print('Response status: ${response.statusCode}');
+  // print('Response body: ${response.body}');
+
+  var response = await post("https://huwamaruwa-app.herokuapp.com/reqbook", headers: <String, String>{
+    'Content-Type': 'application/json',
+  },body:jsonEncode(data)).then((response){
+    print(data);
+    print(response.body.toString());
+    userDataMap = jsonDecode(response.body.toString());
+    print("---Response Status Code "+response.statusCode.toString()+"---");
+    if(response.statusCode == 200) {
+      Navigator.pushReplacementNamed(context, Routes.home);
+      setState(() {
+        isLoading=false;
+      });
+      // print(response.body);
+    } else if(response.statusCode == 404) {
+      print("---else---");
+      setState(() {
+        isLoading=false;
+      });
+      AwesomeDialog(context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          title: "Unsuccessful",
+          desc: "login Unsuccessful",
+          dismissOnTouchOutside: false,
+          btnOkOnPress: () {
+
+          }).show();
+      // print("---ERRO---");
+    }else{
+      setState(() {
+        isLoading=false;
+      });
+      AwesomeDialog(context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          title: "Unsuccessful",
+          desc: "Unexpected Error Occurred",
+          dismissOnTouchOutside: false,
+          btnOkOnPress: () {
+          }).show();
+      // print("---ERRO---");
+    }
+  }).catchError((e){
+    setState(() {
+      isLoading=false;
+    });
+    print("---ERRO---");
+    print("----- "+e+" -----");
+  });
+}
 
 
 }

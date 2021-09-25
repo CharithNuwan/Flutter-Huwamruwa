@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:huwamaruwa/dto/user.dart';
 import 'package:huwamaruwa/routes/routes.dart';
+import 'package:huwamaruwa/services/UI_Data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
         decoration: BoxDecoration(
-            color: Colors.black87
+            color: Colors.grey[800],
         ),
         child: isLoading
             ? Center(child: CircularProgressIndicator()) :
@@ -61,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(10),
-                    child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,),
+                    child: Image.asset("assets/images/booklogo.png",fit: BoxFit.contain,),
                   ),
                 ),
                 SizedBox(height: 20.0,),
@@ -141,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.blue
+                                  color: Colors.orange
                               ),
                               child: OutlineButton(
                                 splashColor: Colors.blueAccent,
@@ -150,11 +152,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     BorderRadius.circular(10.0)
                                 ),
                                 onPressed: () {
+                                  // Navigator.pushReplacementNamed(context, Routes.home);
                                   // setState(() {
                                   //   isLoading = false;
                                   // });
                                   if(passwordController.text!=""){
                                     print("Change");
+                                    login(mobileNumberController.text.toString(), passwordController.text.toString(), context);
                                     // Navigator.pushReplacementNamed(context, Routes.cart);
                                       // login(mobileNumberController.text, passwordController.text,context);
                                       // mobileNumberController.text="123";
@@ -209,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.blue
+                            color: Colors.orange
                         ),
                         child: OutlineButton(
                           splashColor: Colors.blueAccent,
@@ -242,28 +246,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 
-  // Future login(emil,pass) async {
-  //   final url = "http://10.0.2.2:8090/getUserss";
-  //   final response = await http.get(url);
-  //
-  //   if (response.statusCode == 200) {
-  //     final jsonStudent = jsonDecode(response.body);
-  //     print(response.body.hashCode.toString());
-  //   } else {
-  //     print(response.statusCode.toString());
-  //     throw Exception();
-  //   }
-  // }
-
 
   Future login(email,pass,context) async {
     setState(() {
-      isLoading=false;
+      isLoading=true;
     });
-    print("---signupStep---");
+
     sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("email", email.toString());
-    // print("get Key "+prefs.getString(UiData.signup_authKey).toString());
     Map data = {
         "email":email.toString(),
         "password":pass.toString()
@@ -272,23 +261,22 @@ class _LoginScreenState extends State<LoginScreen> {
     print(data);
 
 
-    // var response = await http.post(url);
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
-
     var response = await post("https://huwamaruwa-app.herokuapp.com/user/verify", headers: <String, String>{
       'Content-Type': 'application/json',
     },body:jsonEncode(data)).then((response){
-      print(data);
-      print(response.body.toString());
+      // print(data);
       userDataMap = jsonDecode(response.body.toString());
-      print("---Response Status Code "+response.statusCode.toString()+"---");
+      // print("---Response Status Code "+response.statusCode.toString()+"---");
       if(response.statusCode == 200) {
+        print(response.body);
+       user u=user.fromJson(userDataMap);
+        sharedPreferences.setInt("user", u.userId);
+        sharedPreferences.setInt("user_rate", u.userRate);
+        sharedPreferences.setString("email", u.email);
+        sharedPreferences.setString("name",u.name);
+        sharedPreferences.setString("toprate", u.topratedstatus);
+        sharedPreferences.setString("tp", u.tp);
         Navigator.pushReplacementNamed(context, Routes.home);
-        setState(() {
-          isLoading=false;
-        });
-        // print(response.body);
       } else if(response.statusCode == 404) {
         print("---else---");
         setState(() {
@@ -312,11 +300,11 @@ class _LoginScreenState extends State<LoginScreen> {
             dialogType: DialogType.ERROR,
             animType: AnimType.BOTTOMSLIDE,
             title: "Unsuccessful",
-            desc: "Unexpected Error Occurred",
+            desc: "login Unsuccessful",
             dismissOnTouchOutside: false,
             btnOkOnPress: () {
+
             }).show();
-        // print("---ERRO---");
       }
     }).catchError((e){
       setState(() {

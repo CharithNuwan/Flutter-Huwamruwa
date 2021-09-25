@@ -1,5 +1,7 @@
 
 
+import 'dart:ffi';
+
 class Book {
   List<Booklist> booklist;
 
@@ -24,26 +26,24 @@ class Book {
 }
 
 class Booklist {
-  int categoryid;
-  String province;
-  String district;
-  String city;
-  String description;
   int listingBookId;
-  int userId;
   String isbn;
   String bookName;
-  String publishedYear;
-  String eBookFile;
-  String listingType;
-  int quantity;
-  String image;
+  String description;
   String author;
-  double price;
+  String image;
+  String listingType;
+  Null publishedYear;
+  Null eBookFile;
+  int quantity;
+  int price;
+  int userId;
+  String district;
+  String city;
+  String tp;
 
   Booklist(
-      {this.categoryid,
-        this.province,
+      {
         this.district,
         this.city,
         this.description,
@@ -60,8 +60,6 @@ class Booklist {
         this.price});
 
   Booklist.fromJson(Map<String, dynamic> json) {
-    categoryid = json['categoryid'];
-    province = json['province'];
     district = json['district'];
     city = json['city'];
     description = json['description'];
@@ -80,8 +78,6 @@ class Booklist {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['categoryid'] = this.categoryid;
-    data['province'] = this.province;
     data['district'] = this.district;
     data['city'] = this.city;
     data['description'] = this.description;

@@ -311,7 +311,7 @@ class _SignUpState extends State<SignUp> {
                 Expanded(
                   child: Container(
                       height: MediaQuery.of(context).size.height,
-                      color: Colors.black87,
+                      color: Colors.grey[800],
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
@@ -332,7 +332,7 @@ class _SignUpState extends State<SignUp> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Text(
-                                      "Please Sign-Up for ShoeBay",
+                                      "Please Sign-Up for Huwamaruwa",
                                       style: TextStyle(
                                         color: Colors.white70,
                                         fontSize: 15,
@@ -585,7 +585,7 @@ class _SignUpState extends State<SignUp> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       ),
                                       child: OutlineButton(
                                         splashColor: Colors.blueAccent,
@@ -637,7 +637,7 @@ class _SignUpState extends State<SignUp> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       ),
                                       child: OutlineButton(
                                         splashColor: Colors.blueAccent,

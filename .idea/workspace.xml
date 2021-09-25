@@ -19,11 +19,47 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d092cc60-da32-44a0-bcc3-0dfe1652e2ae" name="Default Changelist" comment="Charitha" />
+    <list default="true" id="d092cc60-da32-44a0-bcc3-0dfe1652e2ae" name="Default Changelist" comment="Charitha">
+      <change afterPath="$PROJECT_DIR$/assets/images/booklogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/book.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/category.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dto/user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/add_new_post_screen2.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/add_new_post_screen3.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/complain_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/description_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/request_book_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screen/seller_profile_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/UI_Data.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/custom_widgets/custom_app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/custom_widgets/custom_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/booklist.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dto/booklist.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/routes/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes/routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/add_new_post_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/add_new_post_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/forgotPassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/forgotPassword.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/menu_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/menu_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/signup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,6 +72,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
@@ -47,7 +84,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Wolwerin-Dev\StudioProjects\bookflutter\assets\images" />
+      <recent name="C:\Users\Wolwerin-Dev\StudioProjects\bookflutter\lib\dto" />
       <recent name="C:\Users\Wolwerin-Dev\StudioProjects\bookflutter\lib\screen" />
+      <recent name="C:\Users\Wolwerin-Dev\StudioProjects\bookflutter\lib\custom_widgets" />
       <recent name="C:\Users\Wolwerin-Dev\StudioProjects\bookflutter\lib\routes" />
     </key>
   </component>
@@ -89,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630815879789</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Charitha">
+      <created>1630941227648</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1630941227648</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,41 +163,60 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="320" y="79" key="#Project_Structure/0.0.1680.1010@0.0.1680.1010" timestamp="1630498308793" />
-    <state x="570" y="252" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1630487691706">
+    <state x="570" y="252" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1630965568734">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="570" y="252" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1630487691706" />
-    <state x="100" y="100" width="824" height="810" key="AVDManager" timestamp="1630850225488">
+    <state x="570" y="252" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1630965568734" />
+    <state x="612" y="135" width="824" height="810" key="AVDManager" timestamp="1632528799166">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="100" y="100" width="824" height="810" key="AVDManager/0.0.1680.1010@0.0.1680.1010" timestamp="1630850225488" />
-    <state x="620" y="260" key="FileChooserDialogImpl" timestamp="1630486789263">
+    <state x="612" y="135" width="824" height="810" key="AVDManager/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632528799166" />
+    <state x="612" y="135" width="824" height="810" key="AVDManager/0.0.1680.1010/1680.0.1024.728@0.0.1680.1010" timestamp="1632497736496" />
+    <state x="612" y="135" width="824" height="810" key="AVDManager/0.0.1680.1010@0.0.1680.1010" timestamp="1631975637186" />
+    <state x="620" y="260" width="439" height="490" key="FileChooserDialogImpl" timestamp="1632524667932">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="620" y="260" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1630486789263" />
-    <state width="1139" height="290" key="GridCell.Tab.0.bottom" timestamp="1630883310975">
+    <state x="620" y="260" key="FileChooserDialogImpl/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632524667932" />
+    <state x="620" y="260" width="439" height="490" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1631895570276" />
+    <state width="1637" height="361" key="GridCell.Tab.0.bottom" timestamp="1632534023639">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1139" height="290" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1630883310975" />
-    <state width="1139" height="290" key="GridCell.Tab.0.center" timestamp="1630883310975">
+    <state width="1637" height="361" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632534023639" />
+    <state width="931" height="267" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1631980544186" />
+    <state width="1637" height="361" key="GridCell.Tab.0.center" timestamp="1632534023639">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1139" height="290" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1630883310975" />
-    <state width="1139" height="290" key="GridCell.Tab.0.left" timestamp="1630883310975">
+    <state width="1637" height="361" key="GridCell.Tab.0.center/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632534023639" />
+    <state width="931" height="267" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1631980544186" />
+    <state width="1637" height="361" key="GridCell.Tab.0.left" timestamp="1632534023639">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1139" height="290" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1630883310975" />
-    <state width="1139" height="290" key="GridCell.Tab.0.right" timestamp="1630883310975">
+    <state width="1637" height="361" key="GridCell.Tab.0.left/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632534023639" />
+    <state width="931" height="267" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1631980544186" />
+    <state width="1637" height="361" key="GridCell.Tab.0.right" timestamp="1632534023639">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1139" height="290" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1630883310975" />
-    <state x="97" y="241" key="Vcs.Push.Dialog.v2" timestamp="1630815885782">
+    <state width="1637" height="361" key="GridCell.Tab.0.right/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632534023639" />
+    <state width="931" height="267" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1631980544186" />
+    <state x="97" y="241" key="Vcs.Push.Dialog.v2" timestamp="1630941230944">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="97" y="241" key="Vcs.Push.Dialog.v2/0.0.1680.1010@0.0.1680.1010" timestamp="1630815885782" />
-    <state x="509" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1630487845692">
+    <state x="97" y="241" key="Vcs.Push.Dialog.v2/0.0.1680.1010@0.0.1680.1010" timestamp="1630941230944" />
+    <state x="92" y="92" width="1496" height="826" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1632528799166">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="509" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1010@0.0.1680.1010" timestamp="1630487845692" />
+    <state x="92" y="92" width="1496" height="826" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1680.1010/-1024.0.1024.728@0.0.1680.1010" timestamp="1632528799166" />
+    <state x="509" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1631328125205">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="509" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1010@0.0.1680.1010" timestamp="1631328125205" />
+    <state x="309" y="263" key="run.anything.popup" timestamp="1631974870834">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="309" y="263" key="run.anything.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1631974870834" />
+    <state x="293" y="238" key="search.everywhere.popup" timestamp="1630967727371">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="293" y="238" key="search.everywhere.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1630967727371" />
   </component>
 </project>

@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:badges/badges.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:huwamaruwa/custom_widgets/custom_app_bar.dart';
 import 'package:huwamaruwa/custom_widgets/custom_drawer.dart';
 import 'package:huwamaruwa/custom_widgets/custom_floating_action_button.dart';
+import 'package:huwamaruwa/custom_widgets/custom_progress_indicator.dart';
 import 'package:huwamaruwa/custom_widgets/profile_clipper.dart';
 import 'package:huwamaruwa/dto/ListingBook.dart';
 import 'package:huwamaruwa/dto/booklist.dart';
@@ -20,14 +20,17 @@ import 'package:huwamaruwa/dto/cart_dto.dart';
 import 'package:huwamaruwa/routes/routes.dart';
 import 'package:huwamaruwa/screen/login_screen.dart';
 import 'package:huwamaruwa/services/UI_Data.dart';
+import 'package:intl/intl.dart';
 import 'dart:ui';
 
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class AddNewScreen extends StatefulWidget {
-  static const String routeName = '/add_new_screen';
+
+class AddNewScreen3 extends StatefulWidget {
+  static const String routeName = '/add_new_screen3';
   @override
-  _AddNewScreenState createState() => _AddNewScreenState();
+  _AddNewScreen3State createState() => _AddNewScreen3State();
 }
 
 
@@ -37,7 +40,7 @@ List<Cart> activityHistoryList = [];
 
 Book book_map;
 
-class _AddNewScreenState extends State<AddNewScreen> {
+class _AddNewScreen3State extends State<AddNewScreen3> {
 
 
   int currentIndex = 0;
@@ -49,6 +52,10 @@ class _AddNewScreenState extends State<AddNewScreen> {
   final TextEditingController _author = new TextEditingController();
   final TextEditingController _isbn = new TextEditingController();
   final TextEditingController _qty = new TextEditingController();
+  final TextEditingController _price = new TextEditingController();
+  final TextEditingController _city = new TextEditingController();
+  final TextEditingController _phone = new TextEditingController();
+  // final TextEditingController _BookList = new TextEditingController();
 
   String listing_type = "";
 
@@ -118,22 +125,93 @@ class _AddNewScreenState extends State<AddNewScreen> {
     });
   }
 
+  Widget profileWidget() {
+    return Container(
+      child:Column(
+        children: [
+          Container(
+            width: Get.width,
+            height: 150,
+            // padding: EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Badge(
+                  badgeColor: Colors.black54,
+                  shape: BadgeShape.circle,
+                  toAnimate: false,
+                  badgeContent: Icon(
+                    Icons.file_upload,
+                    color: Colors.white30,
+                    size: Get.height < 680 ? 12.0 : 18.0,
+                  ),
+                  position: BadgePosition.bottomEnd(bottom: 0,end: 0),
+                  child:GestureDetector(
+                    child:Container(
+                      child:Container(
+                        width: Get.height < 680 ? 60.0 : 100.0,
+                        height: Get.height < 680 ? 60.0 : 100.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(style: BorderStyle.solid,color: Colors.white,width:3.5),
+                          color:  Colors.grey[200],
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:AssetImage("assets/images/user.png"),
+                          ),
+                        ),
+                        child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            // Icon(Icons.add_a_photo,color:Colors.white,size: 25,),
+                          ],
+                        ),
+                      ),
+                      // child: setProfile(),
+                    ),
+                    onTap: (){
+                      // print("Photo tap");
+                      // SweetAlert.show(context,
+                      //     cancelButtonText: "label.proxone.sign.up.page.screen.camera".trArgs(),
+                      //     cancelButtonColor: Colors.amber[600],
+                      //     confirmButtonText: "label.proxone.sign.up.page.screen.gallery".trArgs(),
+                      //     confirmButtonColor: Colors.amber[600],
+                      //     showCancelButton: true,
+                      //     onPress: (bool isConfirm) {
+                      //       if(isConfirm){
+                      //         imgTypeProfile="Profile";
+                      //         imgTypebase="Profile";
+                      //         setState(() {
+                      //           isLoading=true;
+                      //         });
+                      //         openGalary(context);
+                      //       }else{
+                      //         setState(() {
+                      //           isLoading=true;
+                      //         });
+                      //         imgTypeProfile="Profile";
+                      //         imgTypebase="Profile";
+                      //         openCamara(context);
+                      //       }
+                      //       return false;
+                      //     });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   String _listing_type;
   String _catogrory;
   String _district;
   bool checkedValue=false;
-  List<String> extensions;
-
-  String fileName;
-  String path;
-
-  selectFile()async{
-    // File file = await FilePicker.getFile();
-    // String path = await FilePicker.getFilePath()
-    // filePath = await FilePicker.getFilePath(type: FileType.image);
-    path = await FilePicker.getFilePath(type: FileType.any, allowedExtensions: extensions);
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +221,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
       drawer: CustomDrawer(),
       backgroundColor: Colors.white.withAlpha(70),
       body: Stack(
-        children: [
+        children:[
           Positioned(
             top: 0,
             left: 0,
@@ -173,70 +251,49 @@ class _AddNewScreenState extends State<AddNewScreen> {
             child:Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
+                // decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
                 color: Colors.black38,
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 15),
-                    TextFormField(
-                      controller: _book_title,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'Book Title',
-                          filled: true,
-                          fillColor: Colors.grey[200]),
+                    Container(
+                      decoration: BoxDecoration(border: Border.all(color: Colors.white,width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white),
+                      child: Center(
+                        child: DropdownButton<String>(
+                          focusColor:Colors.white,
+                          value: _listing_type,
+                          // elevation: 5,
+                          style: TextStyle(color: Colors.grey[800]),
+                          iconEnabledColor:Colors.grey[800],
+                          items: <String>[
+                            'Colombo',
+                            'Gampaha',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,style:TextStyle(color:Colors.black),),
+                            );
+                          }).toList(),
+                          hint:Text(
+                            "Please Select District",
+                            style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          onChanged: (String value) {
+                            setState(() {
+                              _listing_type = value;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                     SizedBox(height: 15),
                     TextFormField(
-                      controller: _author,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'Author',
-                          filled: true,
-                          fillColor: Colors.grey[200]),
-                    ),
-                    SizedBox(height: 15),
-                    TextFormField(
-                      controller: _isbn,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.transparent),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'ISBN',
-                          filled: true,
-                          fillColor: Colors.grey[200]),
-                    ),
-                    SizedBox(height: 15),
-                    TextFormField(
-                      controller: _qty,
+                      controller: _price,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -253,38 +310,51 @@ class _AddNewScreenState extends State<AddNewScreen> {
                               borderRadius:
                               BorderRadius.all(Radius.circular(10))),
                           prefixIcon: Icon(Icons.person),
-                          hintText: 'Quantity',
+                          hintText: 'Price',
                           filled: true,
                           fillColor: Colors.grey[200]),
                     ),
                     SizedBox(height: 15),
-                    Container(
-                      decoration: BoxDecoration(border: Border.all(color: Colors.white,width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white),
-                      child: CheckboxListTile(
-                        title: const Text('E-Book'),
-                        // subtitle: const Text('A programming blog'),
-                        secondary: const Icon(Icons.menu_book),
-                        value: checkedValue,
-                        onChanged: (bool value) {
-                          try{
-                            selectFile();
-                          }catch(e){
-
-                          }
-
-                          setState(() {
-                            checkedValue = value;
-                          });
-
-                        },
-
-                      ),
+                    TextFormField(
+                      controller: _city,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.transparent),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.transparent),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          prefixIcon: Icon(Icons.person),
+                          hintText: 'City',
+                          filled: true,
+                          fillColor: Colors.grey[200]),
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      controller: _phone,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.transparent),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.transparent),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          prefixIcon: Icon(Icons.person),
+                          hintText: 'Phone No',
+                          filled: true,
+                          fillColor: Colors.grey[200]),
                     ),
                     SizedBox(height: 15),
                     updateButton(context),
-                    // SizedBox(height: 100),
+                    SizedBox(height: 100),
                   ],
                 ),
               ),
@@ -388,7 +458,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
           children: [
             SizedBox(width: 10.0,),
             Text(
-              "Next",
+              "Submit",
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                       color: Colors.grey[900],
@@ -404,94 +474,114 @@ class _AddNewScreenState extends State<AddNewScreen> {
           ],
         ),
         onPressed: (){
-          print(_book_title.text.toString());
-          print(_author.text.toString());
-          print(_isbn.text.toString());
-          print(_qty.text.toString());
-          print(checkedValue.toString());
+          print(_listing_type);
+          print(_district);
+          print(_city.text.toString());
+          print(_phone.text.toString());
+          UI_Data.distric=_listing_type;
+          UI_Data.city=_city.text.toString();
+          UI_Data.phonr=_phone.text.toString();
+          UI_Data.price=_price.text.toString();
+          AwesomeDialog(context: context,
+              dialogType: DialogType.ERROR,
+              animType: AnimType.BOTTOMSLIDE,
+              title: "Are You Sure?",
+              desc: "",
+              dismissOnTouchOutside: false,
+              btnOkOnPress: () {
+                AddBook(context);
+              }).show();
 
-          UI_Data.bookTitle=_book_title.text.toString();
-          UI_Data.auther=_author.text.toString();
-          UI_Data.isbn=_isbn.text.toString();
-          UI_Data.qty=_qty.text.toString();
-          UI_Data.listingType=checkedValue.toString();
-          Get.toNamed("/add_new_screen2");
-          // AddBook(context);
         },
       ),
     );
   }
 
-  // Future AddBook(context) async {
-  //   // setState(() {
-  //   //   isLoading=false;
-  //   // });
-  //   // print("---signupStep---");
-  //   // sharedPreferences = await SharedPreferences.getInstance();
-  //   // sharedPreferences.setString("email", email.toString());
-  //   // // print("get Key "+prefs.getString(UiData.signup_authKey).toString());
-  //   // Map data = {
-  //   //   "email":email.toString(),
-  //   //   "password":pass.toString()
-  //   // };
-  //   // Map<String, dynamic> userDataMap;
-  //   // print(data);
-  //   //
-  //   //
-  //   // // var response = await http.post(url);
-  //   // // print('Response status: ${response.statusCode}');
-  //   // // print('Response body: ${response.body}');
-  //   //
-  //   // var response = await post("https://huwamaruwa-app.herokuapp.com/user/verify", headers: <String, String>{
-  //   //   'Content-Type': 'application/json',
-  //   // },body:jsonEncode(data)).then((response){
-  //   //   print(data);
-  //   //   print(response.body.toString());
-  //   //   userDataMap = jsonDecode(response.body.toString());
-  //   //   print("---Response Status Code "+response.statusCode.toString()+"---");
-  //   //   if(response.statusCode == 200) {
-  //   //     Navigator.pushReplacementNamed(context, Routes.home);
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     // print(response.body);
-  //   //   } else if(response.statusCode == 404) {
-  //   //     print("---else---");
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     AwesomeDialog(context: context,
-  //   //         dialogType: DialogType.ERROR,
-  //   //         animType: AnimType.BOTTOMSLIDE,
-  //   //         title: "Unsuccessful",
-  //   //         desc: "login Unsuccessful",
-  //   //         dismissOnTouchOutside: false,
-  //   //         btnOkOnPress: () {
-  //   //
-  //   //         }).show();
-  //   //     // print("---ERRO---");
-  //   //   }else{
-  //   //     setState(() {
-  //   //       isLoading=false;
-  //   //     });
-  //   //     AwesomeDialog(context: context,
-  //   //         dialogType: DialogType.ERROR,
-  //   //         animType: AnimType.BOTTOMSLIDE,
-  //   //         title: "Unsuccessful",
-  //   //         desc: "Unexpected Error Occurred",
-  //   //         dismissOnTouchOutside: false,
-  //   //         btnOkOnPress: () {
-  //   //         }).show();
-  //   //     // print("---ERRO---");
-  //   //   }
-  //   // }).catchError((e){
-  //   //   setState(() {
-  //   //     isLoading=false;
-  //   //   });
-  //   //   print("---ERRO---");
-  //   //   print("----- "+e+" -----");
-  //   // });
-  // }
+  SharedPreferences sharedPreferences;
+
+ Future AddBook(context) async {
+    setState(() {
+      isLoading=true;
+    });
+
+    sharedPreferences = await SharedPreferences.getInstance();
+    int user_id=sharedPreferences.getInt("user");
+
+    Map data = {
+      "book_name":UI_Data.bookTitle,
+      "user_id":user_id,
+      "author":UI_Data.auther,
+      "isbn":UI_Data.isbn,
+      "quantity":int.parse(UI_Data.qty),
+      "e_book_file":null,
+      "listing_type":UI_Data.listingType,
+      "image":UI_Data.addImg,
+      "categoryid":UI_Data.catogory,
+      "district":UI_Data.distric,
+      "price":int.parse(UI_Data.price),
+      "description":UI_Data.des,
+      "city":UI_Data.city,
+      "tp":UI_Data.phonr
+    };
+    Map<String, dynamic> userDataMap;
+    print(data);
+
+
+    // var response = await http.post(url);
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
+    // http://192.168.8.100:8080
+
+    var response = await post("https://huwamaruwa-app.herokuapp.com/book", headers: <String, String>{
+      'Content-Type': 'application/json',
+    },body:jsonEncode(data)).then((response){
+      // print(data);
+      // print(response.body.toString());
+      // userDataMap = jsonDecode(response.body.toString());
+      print("---Response Status Code "+response.statusCode.toString()+"---");
+      if(response.statusCode == 200) {
+        Navigator.pushReplacementNamed(context, Routes.home);
+        setState(() {
+          isLoading=false;
+        });
+        // print(response.body);
+      } else if(response.statusCode == 404) {
+        print("---else---");
+        setState(() {
+          isLoading=false;
+        });
+        AwesomeDialog(context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: "Unsuccessful",
+            desc: "login Unsuccessful",
+            dismissOnTouchOutside: false,
+            btnOkOnPress: () {
+
+            }).show();
+        // print("---ERRO---");
+      }else{
+        setState(() {
+          isLoading=false;
+        });
+        AwesomeDialog(context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: "Unsuccessful",
+            desc: "Unexpected Error Occurred",
+            dismissOnTouchOutside: false,
+            btnOkOnPress: () {
+            }).show();
+        // print("---ERRO---");
+      }
+    }).catchError((e){
+      setState(() {
+        isLoading=false;
+      });
+      print("---ERRO---");
+      print("----- "+e+" -----");
+    });
+  }
 
 
 }

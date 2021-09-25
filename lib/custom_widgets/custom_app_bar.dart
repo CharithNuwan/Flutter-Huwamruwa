@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huwamaruwa/screen/login_screen.dart';
+import 'package:huwamaruwa/services/UI_Data.dart';
 
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget{
@@ -38,11 +39,11 @@ class _CustomAppBarState extends State<CustomAppBar>{
     return AppBar(
       title: Text(
         widget.title,
-        style: GoogleFonts.happyMonkey(
+        style: GoogleFonts.adventPro(
             textStyle: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w700,
-              fontSize: Get.height < 680 ? 16.0 : 21.0,
+              fontSize: Get.height < 680 ? 22.0 : 27.0,
             )
         ),
       ),
@@ -52,15 +53,15 @@ class _CustomAppBarState extends State<CustomAppBar>{
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: <Color>[
-              Theme.of(context).primaryColorDark,
-              Theme.of(context).primaryColorDark,
+              UI_Data.Custom_App_Bar_color1,
+              UI_Data.Custom_App_Bar_color2,
             ],
           ),
         ),
       ),
       centerTitle: true,
       actions: [
-        LoginScreen.CartD != 0 ?
+        true ?
         Badge(
           shape: BadgeShape.circle,
           position: BadgePosition.topEnd(top: 1,end: 5),
@@ -70,7 +71,7 @@ class _CustomAppBarState extends State<CustomAppBar>{
           badgeContent: Container(
               padding: EdgeInsets.only(left: 2,right: 2),
               child: Text(
-                  LoginScreen.CartD.toString(),
+                  "",
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         color: Colors.grey[800],
@@ -81,7 +82,7 @@ class _CustomAppBarState extends State<CustomAppBar>{
               ),
           ),
           child: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.menu_book),
             onPressed: () {
               Get.toNamed("/cart");
             },
