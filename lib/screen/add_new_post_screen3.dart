@@ -269,7 +269,12 @@ class _AddNewScreen3State extends State<AddNewScreen3> {
                           iconEnabledColor:Colors.grey[800],
                           items: <String>[
                             'Colombo',
+                            'Kandy',
+                            'Kaluthara',
+                            'Matara',
+                            'Rathnapura',
                             'Gampaha',
+                            'Galle',
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,

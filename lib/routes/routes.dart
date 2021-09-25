@@ -1,6 +1,7 @@
 
 
 
+import 'package:huwamaruwa/screen/ad_shearch_screen.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen2.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen3.dart';
@@ -30,6 +31,7 @@ class Routes{
  static const String Sprofile = SellerProfileScreen.routeName;
  static const String complan = ComplainScreen.routeName;
  static const String request = RequestScreen.routeName;
+ static const String search = AdSearchScreen.routeName;
 //  static const String notifications = NotificationPage.routeName;
 //  static const String sos = SOSPage.routeName;
 }

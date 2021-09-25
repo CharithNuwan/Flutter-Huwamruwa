@@ -25,6 +25,7 @@ import 'dart:ui';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home_screen';
+  String Id = (Get.parameters['Id']!=null)?Get.parameters['Id']:"0";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -47,12 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  int categoryID=0;
+
   @override
   void initState() {
     super.initState();
-    if(LoginScreen.flage){
-    }
-    getCivilStatus();
+    categoryID=(widget.Id!="0")?int.parse(widget.Id):0;
+    // if(LoginScreen.flage){
+    // }
+    (categoryID!=0)?getBookBySategory(categoryID):getCivilStatus();
   }
 
   Future getCivilStatus() async {
@@ -83,6 +87,31 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future getBookBySategory(id) async {
+    var parsedData;
+    print("getCivilStatus"+id.toString());
+    Map data = {
+      "categoryid": id
+    };
+
+    var response = await post("https://huwamaruwa-app.herokuapp.com/bookscategory", headers: <String, String>{
+      'Content-Type': 'application/json',
+    },body:jsonEncode(data)).then((response){
+      if(response.statusCode == 200) {
+        Map<String, dynamic> userDataMap = jsonDecode(response.body);
+        print(response.body);
+        setState(() {
+          book_map = Book.fromJson(userDataMap);
+        });
+      } else {
+        print(response.statusCode);
+        print("---ERRO1---");
+      }
+    }).catchError((e){
+      print("---ERRO2---");
+      print("----- "+e.toString()+" -----");
+    });
+  }
 
   void onTabTapped(int index) {
     setState(() {
@@ -409,7 +438,7 @@ Widget activityHistory() {
                                 padding: EdgeInsets.all(2.0),
                                 child: Row(
                                   children: [
-                                    Text("LKR "+book_map.booklist[index].price.toString()+"0",
+                                    Text("LKR "+book_map.booklist[index].price.toString()+".00",
                                       style: GoogleFonts.poppins(
                                           textStyle: TextStyle(
                                             color: Colors.grey[400],
@@ -593,10 +622,15 @@ Widget locationPicker() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.location_on,
-                      size: Get.height < 680 ? 10.0 : 15.0,
-                      color: Colors.amber[600],
+                    GestureDetector(
+                      child: Icon(
+                        Icons.list,
+                        size: Get.height < 680 ? 10.0 : 15.0,
+                        color: Colors.amber[600],
+                      ),
+                      onTap: (){
+                        Get.toNamed("/ad_search_screen");
+                      },
                     ),
                     SizedBox(
                       width: 5.0,

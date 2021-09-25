@@ -692,7 +692,7 @@ class _SignUpState extends State<SignUp> {
     Map<String, dynamic> userDataMap;
     print(data);
 
-    var response = await post("http://10.0.2.2:8090/user/verify", headers: <String, String>{
+    var response = await post("https://huwamaruwa-app.herokuapp.com/user/verify", headers: <String, String>{
       'Content-Type': 'application/json',
     },body:jsonEncode(data)).then((response){
       print(data);
@@ -700,7 +700,7 @@ class _SignUpState extends State<SignUp> {
       userDataMap = jsonDecode(response.body.toString());
       print("---Response Status Code "+response.statusCode.toString()+"---");
       if(response.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, Routes.home);
+        Navigator.pushReplacementNamed(context, Routes.login);
         setState(() {
           isLoading=false;
         });

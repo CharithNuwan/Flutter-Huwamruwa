@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:huwamaruwa/screen/ad_shearch_screen.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen2.dart';
 import 'package:huwamaruwa/screen/add_new_post_screen3.dart';
@@ -99,6 +100,12 @@ void main() {
               GetPage(
                 name: '/request_screen',
                 page: () => RequestScreen(),
+                transition: Transition.native,
+                transitionDuration: Duration(milliseconds: 1000),
+              ),
+              GetPage(
+                name: '/ad_search_screen',
+                page: () => AdSearchScreen(),
                 transition: Transition.native,
                 transitionDuration: Duration(milliseconds: 1000),
               ),

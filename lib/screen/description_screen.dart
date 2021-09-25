@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -358,7 +359,7 @@ class _DescriptionState extends State<Description> {
                         padding: EdgeInsets.all(2.0),
                         child: Row(
                           children: [
-                            Text("LKR "+book.price.toString()+"0",
+                            Text("LKR "+book.price.toString()+".00",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.grey[400],
@@ -492,13 +493,25 @@ class _DescriptionState extends State<Description> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(width: 10.0,),
-                          Text(
-                            "Call Now",
-                            style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: Get.height < 680 ? 10.0 : 15.0,
-                                    fontWeight: FontWeight.w600)),
+                          Column(
+                            children: [
+                              Text(
+                                "Call Now",
+                                style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Get.height < 680 ? 8.0 : 13.0,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Text(
+                                "("+book.tp+")",
+                                style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Get.height < 680 ? 8.0 : 11.0,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -622,6 +635,15 @@ class _DescriptionState extends State<Description> {
                         ],
                       ),
                       onPressed: (){
+                        AwesomeDialog(context: context,
+                            dialogType: DialogType.SUCCES,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: "Successful",
+                            desc: "Review Successful",
+                            dismissOnTouchOutside: false,
+                            btnOkOnPress: () {
+                              // Navigator.pushReplacementNamed(context, Routes.home);
+                            }).show();
                       },
                     ),
                   ),

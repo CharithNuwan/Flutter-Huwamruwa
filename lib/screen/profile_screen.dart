@@ -295,7 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     border: Border.all(color: Colors.amber[600])),
                 child: Column(
                   children: [
-                    Divider(),
+                    // Divider(),
                     Column(
                       children: [
                         Row(
@@ -311,17 +311,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontSize: Get.height < 680 ? 8.0 : 12.0,
                                   )),
                             ),
+                            // Text(
+                            //   book_map.booklist[index].author,
+                            //   style: GoogleFonts.poppins(
+                            //       textStyle: TextStyle(
+                            //         color: Colors.grey[400],
+                            //         fontWeight: FontWeight.w600,
+                            //         fontSize: Get.height < 680 ? 10.0 : 14.0,
+                            //       )),
+                            // ),
                             Text(
-                              book_map.booklist[index].author,
-                              style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: Get.height < 680 ? 10.0 : 14.0,
-                                  )),
-                            ),
-                            Text(
-                              "LKR "+book_map.booklist[index].price.toString()+"0",
+                              "LKR "+book_map.booklist[index].price.toString()+".00",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.grey[400],
